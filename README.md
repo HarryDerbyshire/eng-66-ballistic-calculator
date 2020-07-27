@@ -1,11 +1,11 @@
 <h1>Ballistic Calculator</h1>
-***
+
 <h2>Project Goal</h2>
 
 To create a ballistic calculator which uses firearm and ammunition data from a database which the user can manipulate during runtime to calculate a bullet's trajectory.
 
 <h2>Sprint 1</h2>
-***
+
 
 <h3>What was achieved</h3>
 
