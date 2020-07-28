@@ -12,7 +12,7 @@ namespace BallisticModel
         public int FirearmTypeID { get; set; }
         public int AmmunitionID { get; set; }
         public string FirearmName { get; set; }
-        public string MuzzleVelocity { get; set; }
+        public int MuzzleVelocity { get; set; }
 
         public virtual Ammunition Ammunition { get; set; }
         public virtual FirearmType FirearmType { get; set; }

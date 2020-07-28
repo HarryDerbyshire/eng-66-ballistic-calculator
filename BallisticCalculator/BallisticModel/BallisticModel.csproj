@@ -149,11 +149,17 @@
   <ItemGroup>
     <Compile Include="Ammunition.cs" />
     <Compile Include="BallisticContext.cs" />
+    <Compile Include="Create.cs" />
+    <Compile Include="Default.cs" />
     <Compile Include="Firearm.cs" />
     <Compile Include="FirearmType.cs" />
     <Compile Include="Migrations\20200727125413_InitialCreate.cs" />
     <Compile Include="Migrations\20200727125413_InitialCreate.designer.cs">
       <DependentUpon>20200727125413_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20200728141544_ChangedMuzzleVelocityToInt.cs" />
+    <Compile Include="Migrations\20200728141544_ChangedMuzzleVelocityToInt.designer.cs">
+      <DependentUpon>20200728141544_ChangedMuzzleVelocityToInt.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\BallisticContextModelSnapshot.cs" />
     <Compile Include="Partial Classes\Firearm.cs" />
