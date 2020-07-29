@@ -14,19 +14,22 @@ namespace BallisticController
 {
     public class Read
     {
+        public Firearm SelectedFirearm { get; set; }
+
+       
         #region Firearm Data
-        public static List<Firearm> RetrieveAllFirearm()
+        public List<Firearm> RetrieveAllFirearm()
         {
             using (var db = new BallisticContext())
             {
                 return db.Firearms
                     .Include(a => a.Ammunition)
                     .Include(ft => ft.FirearmType)
-                    .ToList<Firearm>();
+                    .ToList();
             }
         }
 
-        public static List<Firearm> RetrieveSpecificFirearm(int userFirearmID)
+        public List<Firearm> RetrieveSpecificFirearm(int userFirearmID)
         {
             using (var db = new BallisticContext())
             {
@@ -39,7 +42,7 @@ namespace BallisticController
         }
         #endregion
         #region Ammunition Data
-        public static List<Ammunition> RetrieveAllAmmunition()
+        public List<Ammunition> RetrieveAllAmmunition()
         {
             using (var db = new BallisticContext())
             {
@@ -48,7 +51,7 @@ namespace BallisticController
             }
         }
 
-        public static List<Ammunition> RetrieveSpecificAmmunition(int userAmmunitionID)
+        public List<Ammunition> RetrieveSpecificAmmunition(int userAmmunitionID)
         {
             using (var db = new BallisticContext())
             {
@@ -58,7 +61,7 @@ namespace BallisticController
         }
         #endregion
         #region Type Data
-        public static List<FirearmType> RetrieveAllFirearmType()
+        public List<FirearmType> RetrieveAllFirearmType()
         {
             using (var db = new BallisticContext())
             {
@@ -67,7 +70,7 @@ namespace BallisticController
             }
         }
 
-        public static List<FirearmType> RetrieveSpecificFirearmType(int userTypeID)
+        public List<FirearmType> RetrieveSpecificFirearmType(int userTypeID)
         {
             using (var db = new BallisticContext())
             {

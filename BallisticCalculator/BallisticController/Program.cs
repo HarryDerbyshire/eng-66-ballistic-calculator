@@ -11,12 +11,13 @@ namespace BallisticController
     {
         static void Main(string[] args)
         {
-
-            //Create.AddFirearm("Plz delete me", 800, 1009, 7);
+            //Console.WriteLine(Calculation.CrossSectionalArea(5.56f));
+            Console.WriteLine(Calculation.Deceleration());
+            //Create.AddFirearm("Plz delete me", 800, 7, 7);
             //Delete.DeleteFirearm(100);
             //Create.AddAmmunition("I need updating", 0.138f, 123, 7.62f);
             //Create.AddFirearmType("I want to be deleted");
-            //Delete.DeleteFirearmType(100);
+            //Delete.DeleteFirearm(1015);
             //Create.AddFirearmType("Plz update me");
             //Delete.DeleteFirearm(1010);
             //Delete.DeleteFirearmType(1009);
@@ -26,11 +27,13 @@ namespace BallisticController
             //Create.AddAmmunition("MethodSyntax", 0.89f, 145, 9f);
             //Delete.DeleteAmmunition(1009);
             //Delete.DeleteFirearm(1008);
+            //Delete.DeleteAmmunition(7);
+            
 
 
-            //foreach(var item in Read.RetrieveSpecificFirearm(1002))
+            //foreach (var item in Read.RetrieveSpecificFirearm(1015))
             //{
-            //    Update.UpdateFirearm(item.FirearmID, "FN MK16", item.MuzzleVelocity, item.FirearmTypeID, item.AmmunitionID);
+            //    Update.UpdateFirearm(item.FirearmID, "I have been updated", item.MuzzleVelocity, item.FirearmTypeID, item.AmmunitionID);
             //}
 
             //foreach(var item in Read.RetrieveSpecificAmmunition(1010))
@@ -63,10 +66,10 @@ namespace BallisticController
             //    Console.WriteLine($"{item.FirearmName} {item.Ammunition.AmmunitionName} {item.FirearmType.TypeName}");
             //}
 
-            Console.WriteLine(Read.ReadDefaults().AirDensity);
-            Update.UpdateGravity(9.81f);
-            Update.UpdateAirDensity(1.225f);
-         
+            //Console.WriteLine(Read.ReadDefaults().AirDensity);
+            //Update.UpdateGravity(10);
+            //Update.UpdateAirDensity(1.4f);
+
         }
 
     }

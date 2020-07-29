@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.30320.27
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BallisticModel", "BallisticModel\BallisticModel.csproj", "{D0C62ADC-7C3D-4FC4-BFF6-0A05F2B7A525}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BallisticController", "BallisticController\BallisticController.csproj", "{65518019-2A8F-4935-B828-ED8223D554B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BallisticController", "BallisticController\BallisticController.csproj", "{65518019-2A8F-4935-B828-ED8223D554B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BallisticView", "BallisticView\BallisticView.csproj", "{D3C58C3F-0925-4F5F-9AFA-7D7462299EB5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{65518019-2A8F-4935-B828-ED8223D554B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65518019-2A8F-4935-B828-ED8223D554B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{65518019-2A8F-4935-B828-ED8223D554B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3C58C3F-0925-4F5F-9AFA-7D7462299EB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3C58C3F-0925-4F5F-9AFA-7D7462299EB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3C58C3F-0925-4F5F-9AFA-7D7462299EB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3C58C3F-0925-4F5F-9AFA-7D7462299EB5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
