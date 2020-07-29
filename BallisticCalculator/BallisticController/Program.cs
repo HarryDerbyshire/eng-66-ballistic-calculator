@@ -12,7 +12,7 @@ namespace BallisticController
         static void Main(string[] args)
         {
             //Console.WriteLine(Calculation.CrossSectionalArea(5.56f));
-            Console.WriteLine(Calculation.Deceleration());
+            //Console.WriteLine(Calculation.Deceleration());
             //Create.AddFirearm("Plz delete me", 800, 7, 7);
             //Delete.DeleteFirearm(100);
             //Create.AddAmmunition("I need updating", 0.138f, 123, 7.62f);

@@ -87,7 +87,7 @@
             <Label x:Name="LabelGrain" Content="Grain (gr)" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="13" Height="26" Margin="0,30,0,0" Grid.RowSpan="3"/>
             <Label x:Name="LabelDiameter" Content="Diameter (mm)" Grid.Row="3" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="13" Height="26" Margin="0,30,0,0" Grid.RowSpan="3"/>
             <Button x:Name="AmmunitionCreate" Grid.Row="0" Grid.Column="3" Content="Add" Click="AmmunitionCreate_Click"></Button>
-            <Button x:Name="AmmunitionUpdate" Grid.Row="1" Grid.Column="3" Content="Update"></Button>
+            <Button x:Name="AmmunitionUpdate" Grid.Row="1" Grid.Column="3" Content="Update" Click="AmmunitionUpdate_Click"></Button>
             <Button x:Name="AmmunitionDelete" Grid.Row="2" Grid.Column="3" Content="Delete" Click="AmmunitionDelete_Click"></Button>
             <Button x:Name="AmmunitionClear" Grid.Row="3" Grid.Column="3" Content="Clear Selection" Click="AmmunitionClear_Click"></Button>
         </Grid>
@@ -112,7 +112,7 @@
             <TextBox x:Name="TextBoxTypeName" Grid.Row="5" Grid.Column="0"/>
             <Label x:Name="LabelFirearmTypeName" Content="Name" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="13" Height="26" Margin="0,30,0,0" Grid.RowSpan="3"/>
             <Button x:Name="FirearmTypeCreate" Grid.Row="0" Grid.Column="3" Content="Add" Click="FirearmTypeAdd_Click"></Button>
-            <Button x:Name="FirearmTypeUpdate" Grid.Row="1" Grid.Column="3" Content="Update"></Button>
+            <Button x:Name="FirearmTypeUpdate" Grid.Row="1" Grid.Column="3" Content="Update" Click="FirearmTypeUpdate_Click"></Button>
             <Button x:Name="FirearmTypeDelete" Grid.Row="2" Grid.Column="3" Content="Delete" Click="FirearmTypeDelete_Click"></Button>
             <Button x:Name="FirearmTypeClear" Grid.Row="3" Grid.Column="3" Content="Clear Selection" Click="FirearmTypeClear_Click"></Button>
         </Grid>
