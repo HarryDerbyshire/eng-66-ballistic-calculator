@@ -11,10 +11,10 @@ using System.IO;
 
 namespace BallisticController
 {
-    class Update
+    public class Update
     {
 
-        public static void UpdateFirearm(int firearmID, string firearmName, int muzzleVelocity, int typeID, int ammunitionID)
+        public void UpdateFirearm(int firearmID, string firearmName, int muzzleVelocity, int typeID, int ammunitionID)
         {
             using (var db = new BallisticContext())
             {
@@ -28,7 +28,7 @@ namespace BallisticController
             }
         }
 
-        public static void UpdateAmmunition(int ammunitionID, string ammunitionName, float coefficient, float grain, float diameter)
+        public void UpdateAmmunition(int ammunitionID, string ammunitionName, float coefficient, float grain, float diameter)
         {
             using (var db = new BallisticContext())
             {
@@ -42,7 +42,7 @@ namespace BallisticController
             }
         }
 
-        public static void UpdateFirearmType(int typeID, string typeName)
+        public void UpdateFirearmType(int typeID, string typeName)
         {
             using (var db = new BallisticContext())
             {
@@ -53,7 +53,7 @@ namespace BallisticController
             }
         }
 
-        public static void UpdateGravity(float gravity)
+        public void UpdateGravity(float gravity)
         {
             string path = "C:\\github\\eng-66-ballistic-calculator\\BallisticCalculator\\BallisticModel\\Defaults.json";
             string jsonString = File.ReadAllText(path);
@@ -65,7 +65,7 @@ namespace BallisticController
             File.WriteAllText(path, jsonString);
         }
 
-        public static void UpdateAirDensity(float airDensity)
+        public void UpdateAirDensity(float airDensity)
         {
             string path = "C:\\github\\eng-66-ballistic-calculator\\BallisticCalculator\\BallisticModel\\Defaults.json";
             string jsonString = File.ReadAllText(path);

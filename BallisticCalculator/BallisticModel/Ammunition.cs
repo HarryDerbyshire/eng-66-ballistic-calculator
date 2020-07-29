@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BallisticModel
 {
-    public class Ammunition
+    public partial class Ammunition
     {
         public int AmmunitionID { get; set; }
         public string AmmunitionName { get; set; }

@@ -4,14 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
 namespace BallisticModel
 {
-    public partial class Firearm
+    public partial class Ammunition
     {
         public override string ToString()
         {
-            return $"{FirearmName}: {FirearmType.TypeName} - {MuzzleVelocity}ms - {Ammunition.AmmunitionName}";
+            return $"{AmmunitionName}: Coefficient: {Coefficient} Grain: {Grain} Diameter: {Diameter}mm";
         }
+
+        
     }
 }

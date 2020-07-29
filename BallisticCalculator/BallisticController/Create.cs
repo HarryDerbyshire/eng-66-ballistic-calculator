@@ -11,7 +11,7 @@ namespace BallisticController
     public class Create
     {
      
-        public static void AddFirearm(string firearmName, int muzzleVelocity, int typeID, int ammunitionID)
+        public void AddFirearm(string firearmName, int muzzleVelocity, int typeID, int ammunitionID)
         {
 
             using (var db = new BallisticContext())
@@ -21,7 +21,7 @@ namespace BallisticController
             }
         }
       
-        public static void AddAmmunition(string ammunitionName, float coefficient, float grain, float diameter)
+        public void AddAmmunition(string ammunitionName, float coefficient, float grain, float diameter)
         {
             using (var db = new BallisticContext())
             {
@@ -30,7 +30,7 @@ namespace BallisticController
             }
         }
 
-        public static void AddFirearmType(string typeName)
+        public void AddFirearmType(string typeName)
         {
             using (var db = new BallisticContext())
             {

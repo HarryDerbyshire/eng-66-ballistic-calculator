@@ -9,9 +9,9 @@ using Microsoft.EntityFrameworkCore.Internal;
 
 namespace BallisticController
 {
-    class Delete
+    public class Delete
     {
-       public static void DeleteFirearm(int firearmID)
+       public void DeleteFirearm(int firearmID)
         {
             using (var db = new BallisticContext())
             {
@@ -26,7 +26,7 @@ namespace BallisticController
             }
         }
 
-        public static void DeleteFirearmType(int typeID)
+        public void DeleteFirearmType(int typeID)
         {
             using (var db = new BallisticContext())
             {
@@ -44,7 +44,7 @@ namespace BallisticController
             }
         }
 
-        public static void DeleteAmmunition(int ammunitionID)
+        public void DeleteAmmunition(int ammunitionID)
         {
             using(var db = new BallisticContext())
             {
