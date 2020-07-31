@@ -26,15 +26,14 @@ namespace BallisticController
             return Convert.ToDecimal(grain * 0.00006479891m);
         }
 
-        public static decimal Deceleration(Firearm currentFirearm, decimal velocity)
+        public static decimal Deceleration(Firearm currentFirearm, decimal velocity, decimal mass, decimal area)
         {
             var constants = Read.ReadDefaults();
 
             
-            decimal mass = GrainToKilogram(Convert.ToDecimal(currentFirearm.Ammunition.Grain));
-            decimal area = CrossSectionalArea(Convert.ToDecimal(currentFirearm.Ammunition.Diameter));
+            
             //Return (CrossSection * BallisticCoefficient * AirDensity * (Velocity ^ 2)) / (2 * Mass)
-            return Convert.ToDecimal(Convert.ToDecimal(area) * Convert.ToDecimal(currentFirearm.Ammunition.Coefficient) * Convert.ToDecimal(constants.AirDensity) * (velocity * velocity)) / (2 * mass);
+            return Convert.ToDecimal(area * Convert.ToDecimal(currentFirearm.Ammunition.Coefficient) * Convert.ToDecimal(constants.AirDensity) * (velocity * velocity)) / (2 * mass);
         }
         public static double AngleInRadians(int angle)
         {
@@ -47,7 +46,8 @@ namespace BallisticController
             _read = new Read();
 
             Firearm currentFirearm = _read.RetrieveSpecificFirearm(firearmID).FirstOrDefault();
-          
+            decimal mass = GrainToKilogram(Convert.ToDecimal(currentFirearm.Ammunition.Grain));
+            decimal area = CrossSectionalArea(Convert.ToDecimal(currentFirearm.Ammunition.Diameter));
             decimal xSpeed = Convert.ToDecimal(currentFirearm.MuzzleVelocity * Math.Cos(angleInRadians));
             decimal ySpeed = Convert.ToDecimal(currentFirearm.MuzzleVelocity * Math.Sin(angleInRadians));
             decimal newYSpeed;
@@ -62,7 +62,7 @@ namespace BallisticController
 
             while (yDistance > 0 && xSpeed > 0)
             {
-                newXSpeed = xSpeed - (Deceleration(currentFirearm, xSpeed) * sampleRate);
+                newXSpeed = xSpeed - (Deceleration(currentFirearm, xSpeed, mass, area) * sampleRate);
                 newYSpeed = 
                     ySpeed 
                     - 
@@ -72,7 +72,7 @@ namespace BallisticController
                             + 
                             Deceleration(
                                 currentFirearm, 
-                                ySpeed
+                                ySpeed, mass, area
                             )
                        
                          )
