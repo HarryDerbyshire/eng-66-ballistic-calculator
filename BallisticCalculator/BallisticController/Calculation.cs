@@ -49,10 +49,8 @@ namespace BallisticController
             _read = new Read();
 
             Firearm currentFirearm = _read.RetrieveSpecificFirearm(firearmID).FirstOrDefault();
-            decimal MZ = (currentFirearm.MuzzleVelocity);
-            decimal AR = Convert.ToDecimal(Math.Cos((angleInRadians)));
-            decimal xSpeed = MZ * AR;
-            //float xSpeed = Convert.ToSingle(currentFirearm.MuzzleVelocity) * Math.Cos(angleInRadians));
+          
+            decimal xSpeed = Convert.ToDecimal(currentFirearm.MuzzleVelocity * Math.Cos(angleInRadians));
             decimal ySpeed = Convert.ToDecimal(currentFirearm.MuzzleVelocity * Math.Sin(angleInRadians));
             decimal newYSpeed;
             decimal newXSpeed;
