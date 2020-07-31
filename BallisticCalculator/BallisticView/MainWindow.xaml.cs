@@ -42,8 +42,8 @@ namespace BallisticView
             _update = new Update();
             _delete = new Delete();
             PopulateControls();
+            //mcChart.Visibility = Visibility.Hidden;
             
-            LoadLineChartData();
 
         }
         private void PopulateControls()
@@ -53,15 +53,17 @@ namespace BallisticView
             ListBoxFirearmType.ItemsSource = _read.RetrieveAllFirearmType();
             ComboBoxFirearmType.ItemsSource = _read.RetrieveAllFirearmType();
             ComboBoxAmmunition.ItemsSource = _read.RetrieveAllAmmunition();
-            
+            ComboBoxFirearm.ItemsSource = _read.RetrieveAllFirearm();
+            //LoadLineChartData();
         }
 
         private void LoadLineChartData()
         {
-            ((LineSeries)mcChart.Series[0]).ItemsSource = Calculation.Speed(2018, 20, 20, 0.1m);
-
+            Firearm currentFirearm = ComboBoxFirearm.SelectedItem as Firearm;
+            ((LineSeries)HeightDistance.Series[0]).ItemsSource = Calculation.Speed(currentFirearm.FirearmID, Convert.ToInt32(SliderAngle.Value), 20, 0.1m);
+            
         }
-
+        
         #region listbox events
         private void ListBoxFirearm_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -246,9 +248,21 @@ namespace BallisticView
             }
         }
 
+
+
         #endregion
 
-            
-        
+        private void ComboBoxFirearm_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            LoadLineChartData();
+        }
+
+        private void SliderAngle_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            TextBoxAngle.Text = SliderAngle.Value.ToString();
+            LoadLineChartData();
+        }
+
+       
     }
 }
