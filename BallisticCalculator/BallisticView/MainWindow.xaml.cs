@@ -20,6 +20,7 @@ using System.Windows.Controls.DataVisualization.Charting;
 using System.Collections;
 using System.Security.Cryptography.X509Certificates;
 using System.Windows.Diagnostics;
+using System.Windows.Controls.Primitives;
 
 namespace BallisticView
 {
@@ -274,11 +275,17 @@ namespace BallisticView
             }
         }
 
-        private void SliderAngle_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void SliderAngle_DragCompleted(object sender, DragCompletedEventArgs e)
         {
             TextBoxAngle.Text = SliderAngle.Value.ToString();
             LoadLineChartData();
         }
+
+        //private void SliderAngle_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        //{
+        //    TextBoxAngle.Text = SliderAngle.Value.ToString();
+        //    LoadLineChartData();
+        //}
 
         public string graphType ()
         {
@@ -336,5 +343,7 @@ namespace BallisticView
             LoadLineChartData();
             
         }
+
+
     }
 }
