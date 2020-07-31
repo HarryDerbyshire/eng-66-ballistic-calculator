@@ -15,6 +15,10 @@ using System.Windows.Shapes;
 using BallisticController;
 using BallisticModel;
 using System.Linq;
+using System.Windows.Controls.DataVisualization;
+using System.Windows.Controls.DataVisualization.Charting;
+using System.Collections;
+using System.Security.Cryptography.X509Certificates;
 
 namespace BallisticView
 {
@@ -29,6 +33,7 @@ namespace BallisticView
         private Read _read;
         private Update _update;
         private Delete _delete;
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -37,27 +42,32 @@ namespace BallisticView
             _update = new Update();
             _delete = new Delete();
             PopulateControls();
-        }
+            
+            LoadLineChartData();
 
+        }
         private void PopulateControls()
-        {
-           
+        {         
             ListBoxFirearm.ItemsSource = _read.RetrieveAllFirearm();
             ListBoxAmmunition.ItemsSource = _read.RetrieveAllAmmunition();
             ListBoxFirearmType.ItemsSource = _read.RetrieveAllFirearmType();
             ComboBoxFirearmType.ItemsSource = _read.RetrieveAllFirearmType();
             ComboBoxAmmunition.ItemsSource = _read.RetrieveAllAmmunition();
             
+        }
+
+        private void LoadLineChartData()
+        {
+            ((LineSeries)mcChart.Series[0]).ItemsSource = Calculation.Speed(2018, 20, 20, 0.1m);
 
         }
 
+        #region listbox events
         private void ListBoxFirearm_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (ListBoxFirearm.SelectedItem != null)
             {
                 Firearm currentFirearm = ListBoxFirearm.SelectedItem as Firearm;
-
-               
 
                 TextBoxFirearmName.Text = currentFirearm.FirearmName;
                 TextBoxMuzzleVelocity.Text = currentFirearm.MuzzleVelocity.ToString();
@@ -72,16 +82,14 @@ namespace BallisticView
                 
                 foreach (var item in ComboBoxAmmunition.ItemsSource)
                 {
-
                     if (((Ammunition)item).AmmunitionID == currentFirearm.AmmunitionID) {
 
                         ComboBoxAmmunition.SelectedItem = item;
                     }
                 }
+
                 
-                
-            }
-            
+            }    
         }
 
         private void ListBoxAmmunition_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -107,6 +115,9 @@ namespace BallisticView
             }
         }
 
+        #endregion
+
+        #region firearm buttons
         private void FirearmCreate_Click(object sender, RoutedEventArgs e)
         {
             if (TextBoxFirearmName.Text != "" && TextBoxMuzzleVelocity.Text != "" && ComboBoxAmmunition.SelectedItem != null && ComboBoxFirearmType.SelectedItem != null)
@@ -125,44 +136,6 @@ namespace BallisticView
                 Firearm currentFirearm = ListBoxFirearm.SelectedItem as Firearm;
 
                 _delete.DeleteFirearm(currentFirearm.FirearmID);
-                PopulateControls();
-            }
-        }
-
-        private void AmmunitionCreate_Click(object sender, RoutedEventArgs e)
-        {
-            if (TextBoxAmmunitionName.Text != "" && TextBoxCoefficient.Text != null && TextBoxGrain.Text != "" && TextBoxDiameter.Text != null)
-            {
-                _create.AddAmmunition(TextBoxAmmunitionName.Text, float.Parse(TextBoxCoefficient.Text), float.Parse(TextBoxGrain.Text), float.Parse(TextBoxDiameter.Text));
-                PopulateControls();
-            }
-        }
-
-        private void AmmunitionDelete_Click(object sender, RoutedEventArgs e)
-        {
-            if (ListBoxAmmunition.SelectedItem != null)
-            {
-                Ammunition currentAmmunition = ListBoxAmmunition.SelectedItem as Ammunition;
-                _delete.DeleteAmmunition(currentAmmunition.AmmunitionID);
-                PopulateControls();
-            }
-        }
-
-        private void FirearmTypeAdd_Click(object sender, RoutedEventArgs e)
-        {
-            if (TextBoxTypeName.Text != "")
-            {
-                _create.AddFirearmType(TextBoxTypeName.Text);
-                PopulateControls();
-            }
-        }
-
-        private void FirearmTypeDelete_Click(object sender, RoutedEventArgs e)
-        {
-            if (ListBoxFirearmType.SelectedItem != null)
-            {
-                FirearmType currentType = ListBoxFirearmType.SelectedItem as FirearmType;
-                _delete.DeleteFirearmType(currentType.FirearmTypeID);
                 PopulateControls();
             }
         }
@@ -188,6 +161,27 @@ namespace BallisticView
             TextBoxFirearmName.Text = "";
             TextBoxMuzzleVelocity.Text = "";
         }
+        #endregion
+
+        #region ammunition buttons
+        private void AmmunitionCreate_Click(object sender, RoutedEventArgs e)
+        {
+            if (TextBoxAmmunitionName.Text != "" && TextBoxCoefficient.Text != null && TextBoxGrain.Text != "" && TextBoxDiameter.Text != null)
+            {
+                _create.AddAmmunition(TextBoxAmmunitionName.Text, float.Parse(TextBoxCoefficient.Text), float.Parse(TextBoxGrain.Text), float.Parse(TextBoxDiameter.Text));
+                PopulateControls();
+            }
+        }
+
+        private void AmmunitionDelete_Click(object sender, RoutedEventArgs e)
+        {
+            if (ListBoxAmmunition.SelectedItem != null)
+            {
+                Ammunition currentAmmunition = ListBoxAmmunition.SelectedItem as Ammunition;
+                _delete.DeleteAmmunition(currentAmmunition.AmmunitionID);
+                PopulateControls();
+            }
+        }
 
         private void AmmunitionClear_Click(object sender, RoutedEventArgs e)
         {
@@ -196,12 +190,6 @@ namespace BallisticView
             TextBoxCoefficient.Text = "";
             TextBoxDiameter.Text = "";
             TextBoxGrain.Text = "";
-        }
-
-        private void FirearmTypeClear_Click(object sender, RoutedEventArgs e)
-        {
-            ListBoxFirearmType.SelectedItem = null;
-            TextBoxTypeName.Text = "";
         }
 
         private void AmmunitionUpdate_Click(object sender, RoutedEventArgs e)
@@ -214,6 +202,39 @@ namespace BallisticView
                 PopulateControls();
             }
         }
+        #endregion
+
+        #region firearm type buttons
+        private void FirearmTypeAdd_Click(object sender, RoutedEventArgs e)
+        {
+            if (TextBoxTypeName.Text != "")
+            {
+                _create.AddFirearmType(TextBoxTypeName.Text);
+                PopulateControls();
+            }
+        }
+
+        private void FirearmTypeDelete_Click(object sender, RoutedEventArgs e)
+        {
+            if (ListBoxFirearmType.SelectedItem != null)
+            {
+                FirearmType currentType = ListBoxFirearmType.SelectedItem as FirearmType;
+                _delete.DeleteFirearmType(currentType.FirearmTypeID);
+                PopulateControls();
+            }
+        }
+
+
+
+
+
+        private void FirearmTypeClear_Click(object sender, RoutedEventArgs e)
+        {
+            ListBoxFirearmType.SelectedItem = null;
+            TextBoxTypeName.Text = "";
+        }
+
+
 
         private void FirearmTypeUpdate_Click(object sender, RoutedEventArgs e)
         {
@@ -224,5 +245,10 @@ namespace BallisticView
                 PopulateControls();
             }
         }
+
+        #endregion
+
+            
+        
     }
 }
