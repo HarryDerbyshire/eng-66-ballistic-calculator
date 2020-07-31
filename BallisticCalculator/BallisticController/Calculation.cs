@@ -11,9 +11,7 @@ namespace BallisticController
 {
     public class Calculation
     {
-        public float Area { get; set; }
-        public float Mass { get; set; }
-        public Firearm SelectedFirearm { get; }
+       
         
          
         public static decimal CrossSectionalArea(decimal diameter)
@@ -28,21 +26,21 @@ namespace BallisticController
             return Convert.ToDecimal(grain * 0.00006479891m);
         }
 
-        public static decimal Deceleration(decimal diameter, decimal coefficient, decimal grain, decimal velocity)
+        public static decimal Deceleration(Firearm currentFirearm, decimal velocity)
         {
             var constants = Read.ReadDefaults();
 
             
-            decimal mass = GrainToKilogram(grain);
-            decimal area = CrossSectionalArea(diameter);
+            decimal mass = GrainToKilogram(Convert.ToDecimal(currentFirearm.Ammunition.Grain));
+            decimal area = CrossSectionalArea(Convert.ToDecimal(currentFirearm.Ammunition.Diameter));
             //Return (CrossSection * BallisticCoefficient * AirDensity * (Velocity ^ 2)) / (2 * Mass)
-            return Convert.ToDecimal(Convert.ToDecimal(area) * Convert.ToDecimal(coefficient) * Convert.ToDecimal(constants.AirDensity) * (velocity * velocity)) / (2 * mass);
+            return Convert.ToDecimal(Convert.ToDecimal(area) * Convert.ToDecimal(currentFirearm.Ammunition.Coefficient) * Convert.ToDecimal(constants.AirDensity) * (velocity * velocity)) / (2 * mass);
         }
         public static double AngleInRadians(int angle)
         {
             return Convert.ToDouble(angle * Math.PI / 180);
         }
-        public static List<KeyValuePair<decimal, decimal>> Speed(int firearmID, int angle, decimal height, decimal sampleRate)
+        public static List<KeyValuePair<decimal, decimal>> Speed(int firearmID, int angle, decimal height, decimal sampleRate, string graphType)
         {
             double angleInRadians = AngleInRadians(angle);
             Read _read;
@@ -59,11 +57,12 @@ namespace BallisticController
             decimal totalTime = 0;
             var constants = Read.ReadDefaults();
 
-            List<KeyValuePair<decimal, decimal>> listCoord = new List<KeyValuePair<decimal, decimal>>() { };
+            List<KeyValuePair<decimal, decimal>> listCoordTime = new List<KeyValuePair<decimal, decimal>>() { };
+            List<KeyValuePair<decimal, decimal>> listCoordDistance = new List<KeyValuePair<decimal, decimal>>() { };
 
             while (yDistance > 0 && xSpeed > 0)
             {
-                newXSpeed = xSpeed - (Deceleration(Convert.ToDecimal(currentFirearm.Ammunition.Diameter), Convert.ToDecimal(currentFirearm.Ammunition.Coefficient), Convert.ToDecimal(currentFirearm.Ammunition.Grain), xSpeed) * sampleRate);
+                newXSpeed = xSpeed - (Deceleration(currentFirearm, xSpeed) * sampleRate);
                 newYSpeed = 
                     ySpeed 
                     - 
@@ -72,9 +71,7 @@ namespace BallisticController
                             Convert.ToDecimal(constants.Gravity) 
                             + 
                             Deceleration(
-                                Convert.ToDecimal(currentFirearm.Ammunition.Diameter), 
-                                Convert.ToDecimal(currentFirearm.Ammunition.Coefficient), 
-                                Convert.ToDecimal(currentFirearm.Ammunition.Grain), 
+                                currentFirearm, 
                                 ySpeed
                             )
                        
@@ -92,14 +89,20 @@ namespace BallisticController
                 xSpeed = newXSpeed;
                 ySpeed = newYSpeed;
 
-                //listCoord.Add(new KeyValuePair<decimal, decimal>(xDistance, yDistance));
-                listCoord.Add(new KeyValuePair<decimal, decimal>(totalTime, yDistance));
+                listCoordDistance.Add(new KeyValuePair<decimal, decimal>(xDistance, yDistance));
+                listCoordTime.Add(new KeyValuePair<decimal, decimal>(totalTime, yDistance));
             }
 
+           
+            if (graphType == "HeightTime")
+            {
+                return listCoordTime;
+            } else
+            {
+                return listCoordDistance;
+            }
 
-
-
-            return listCoord;
+            
         }
     }
 }
