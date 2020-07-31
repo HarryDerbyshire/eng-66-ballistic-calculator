@@ -19,6 +19,7 @@ using System.Windows.Controls.DataVisualization;
 using System.Windows.Controls.DataVisualization.Charting;
 using System.Collections;
 using System.Security.Cryptography.X509Certificates;
+using System.Windows.Diagnostics;
 
 namespace BallisticView
 {
@@ -33,7 +34,8 @@ namespace BallisticView
         private Read _read;
         private Update _update;
         private Delete _delete;
-        
+        private Default _constants = Read.ReadDefaults();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -41,8 +43,9 @@ namespace BallisticView
             _read = new Read();
             _update = new Update();
             _delete = new Delete();
+            
             PopulateControls();
-            //mcChart.Visibility = Visibility.Hidden;
+            HeightDistance.Visibility = Visibility.Hidden;
             
 
         }
@@ -54,14 +57,25 @@ namespace BallisticView
             ComboBoxFirearmType.ItemsSource = _read.RetrieveAllFirearmType();
             ComboBoxAmmunition.ItemsSource = _read.RetrieveAllAmmunition();
             ComboBoxFirearm.ItemsSource = _read.RetrieveAllFirearm();
+            TextBoxStartingHeight.Text = _constants.StartingHeight.ToString();
+            TextBoxTimeInterval.Text = _constants.TimeInterval.ToString();
+            TextBoxAirDensity.Text = _constants.AirDensity.ToString();
+            TextBoxGravity.Text = _constants.Gravity.ToString();
+            TextBoxAngle.Text = SliderAngle.Value.ToString();
             //LoadLineChartData();
         }
 
         private void LoadLineChartData()
         {
             Firearm currentFirearm = ComboBoxFirearm.SelectedItem as Firearm;
-            ((LineSeries)HeightDistance.Series[0]).ItemsSource = Calculation.Speed(currentFirearm.FirearmID, Convert.ToInt32(SliderAngle.Value), 20, 0.1m);
-            
+            if (graphType() == "HeightTime")
+            {
+                ((LineSeries)HeightTime.Series[0]).ItemsSource = Calculation.Speed(currentFirearm.FirearmID, Convert.ToInt32(SliderAngle.Value), Convert.ToDecimal(TextBoxStartingHeight.Text), Convert.ToDecimal(TextBoxTimeInterval.Text), "HeightTime");
+            }
+            else
+            {
+                ((LineSeries)HeightDistance.Series[0]).ItemsSource = Calculation.Speed(currentFirearm.FirearmID, Convert.ToInt32(SliderAngle.Value), Convert.ToDecimal(TextBoxStartingHeight.Text), Convert.ToDecimal(TextBoxTimeInterval.Text), "HeightDistance");
+            }
         }
         
         #region listbox events
@@ -254,7 +268,10 @@ namespace BallisticView
 
         private void ComboBoxFirearm_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            LoadLineChartData();
+            if (ComboBoxFirearm.SelectedItem != null)
+            {
+                LoadLineChartData();
+            }
         }
 
         private void SliderAngle_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -263,6 +280,61 @@ namespace BallisticView
             LoadLineChartData();
         }
 
-       
+        public string graphType ()
+        {
+            if (HeightTime.Visibility == Visibility.Visible)
+            {
+                return "HeightTime";
+            } else
+            {
+                return "HeightDistance";
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Firearm currentFirearm = ComboBoxFirearm.SelectedItem as Firearm;
+            if (graphType() == "HeightTime")
+            {
+                HeightTime.Visibility = Visibility.Hidden;
+                HeightDistance.Visibility = Visibility.Visible;
+                LoadLineChartData();
+                //((LineSeries)HeightDistance.Series[0]).ItemsSource = Calculation.Speed(currentFirearm.FirearmID, Convert.ToInt32(SliderAngle.Value), Convert.ToDecimal(TextBoxStartingHeight.Text), Convert.ToDecimal(TextBoxTimeInterval.Text), graphType());
+                
+            } else
+            {
+                HeightTime.Visibility = Visibility.Visible;
+                HeightDistance.Visibility = Visibility.Hidden;
+                LoadLineChartData();
+                //((LineSeries)HeightTime.Series[0]).ItemsSource = Calculation.Speed(currentFirearm.FirearmID, Convert.ToInt32(SliderAngle.Value), Convert.ToDecimal(TextBoxStartingHeight.Text), Convert.ToDecimal(TextBoxTimeInterval.Text), graphType());
+            }
+        }
+
+        private void ButtonSaveAirDensity_Click(object sender, RoutedEventArgs e)
+        {
+            _update.UpdateAirDensity(float.Parse(TextBoxAirDensity.Text));
+            LoadLineChartData();
+        }
+
+        private void ButtonSaveGravity_Click(object sender, RoutedEventArgs e)
+        {
+            _update.UpdateGravity(float.Parse(TextBoxGravity.Text));
+            LoadLineChartData();
+        }
+
+        private void ButtonSaveStartingHeight_Click(object sender, RoutedEventArgs e)
+        {
+            _update.UpdateStartingHeight(float.Parse(TextBoxStartingHeight.Text));
+           
+            LoadLineChartData();
+        }
+
+        private void ButtonSaveTimeInterval_Click(object sender, RoutedEventArgs e)
+        {
+            _update.UpdateTimeInterval(float.Parse(TextBoxTimeInterval.Text));
+           
+            LoadLineChartData();
+            
+        }
     }
 }

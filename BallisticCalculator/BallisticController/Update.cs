@@ -76,5 +76,29 @@ namespace BallisticController
             jsonString = JsonConvert.SerializeObject(jsonObject);
             File.WriteAllText(path, jsonString);
         }
+
+        public void UpdateStartingHeight(float startingHeight)
+        {
+            string path = "C:\\github\\eng-66-ballistic-calculator\\BallisticCalculator\\BallisticModel\\Defaults.json";
+            string jsonString = File.ReadAllText(path);
+            var jsonObject = JsonConvert.DeserializeObject<Default>(jsonString);
+
+            jsonObject.StartingHeight = startingHeight;
+
+            jsonString = JsonConvert.SerializeObject(jsonObject);
+            File.WriteAllText(path, jsonString);
+        }
+
+        public void UpdateTimeInterval(float timeInterval)
+        {
+            string path = "C:\\github\\eng-66-ballistic-calculator\\BallisticCalculator\\BallisticModel\\Defaults.json";
+            string jsonString = File.ReadAllText(path);
+            var jsonObject = JsonConvert.DeserializeObject<Default>(jsonString);
+
+            jsonObject.TimeInterval = timeInterval;
+
+            jsonString = JsonConvert.SerializeObject(jsonObject);
+            File.WriteAllText(path, jsonString);
+        }
     }
 }

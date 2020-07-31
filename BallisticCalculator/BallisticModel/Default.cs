@@ -8,5 +8,9 @@ namespace BallisticController
     {
         public float Gravity { get; set; }
         public float AirDensity { get; set; }
+
+        public float StartingHeight { get; set; }
+
+        public float TimeInterval { get; set; }
     }
 }
