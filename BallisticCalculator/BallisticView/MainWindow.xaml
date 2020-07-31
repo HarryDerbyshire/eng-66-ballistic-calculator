@@ -3,9 +3,20 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:DV="clr-namespace:System.Windows.Controls.DataVisualization;assembly=System.Windows.Controls.DataVisualization.Toolkit"
+        xmlns:DVC="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit" 
         xmlns:local="clr-namespace:BallisticView"
         mc:Ignorable="d"
         Title="MainWindow" Height="542" Width="1034">
+    <Window.Resources>
+        <!--<Style x:Key="LineDataPointStyle" TargetType="{x:Type DVC:Chart:}">
+            <Setter Property="Background" Value="Blue" ></Setter>
+            <Setter Property="Opacity" Value="0" />
+        </Style>-->
+
+        
+
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="17*"/>
@@ -25,10 +36,7 @@
             <RowDefinition Height="1"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Column="4" Background="DarkSlateGray" Grid.RowSpan="5" Grid.ColumnSpan="3" Margin="31,0,20,0">
-
-        </Grid>
-
+        <Grid Grid.Column="4" Background="DarkSlateGray" Grid.RowSpan="5" Grid.ColumnSpan="3" Margin="31,0,20,0"/>
 
         <Grid Grid.Row="0" Grid.ColumnSpan="6" Margin="0,0,0,1" Grid.RowSpan="2">
             <Grid.ColumnDefinitions>
@@ -39,28 +47,39 @@
 
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="22"/>
+                <RowDefinition Height="25"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="20"/>
-                <RowDefinition Height="20"/>
+                
             </Grid.RowDefinitions>
-            <ListBox x:Name="ListBoxFirearm" Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="3" SelectionChanged="ListBoxFirearm_SelectionChanged"/>
-            <TextBox x:Name="TextBoxFirearmName" Grid.Row="5" Grid.Column="0"/>
-            <TextBox x:Name="TextBoxMuzzleVelocity" Grid.Row="5" Grid.Column="1"/>
-            <ComboBox x:Name="ComboBoxFirearmType" Grid.Row="5" Grid.Column="2"/>
-            <ComboBox x:Name="ComboBoxAmmunition" Grid.Row="5" Grid.Column="3"/>
-            <Label x:Name="LabelFirearmName" Content="Name" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="13" Height="26" Margin="0,30,0,0" Grid.RowSpan="3"/>
-            <Label x:Name="LabelMuzzleVelocity" Content="Muzzle Velocity (ms)" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="13" Height="26" Margin="0,30,0,0" Grid.RowSpan="3"/>
-            <Label x:Name="LabelType" Content="Firearm Type" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="13" Height="26" Margin="0,30,0,0" Grid.RowSpan="3"/>
-            <Label x:Name="LabelAmmunition" Content="Ammunition" Grid.Row="3" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="13" Height="26" Margin="0,30,0,0" Grid.RowSpan="3"/>
-            <Button x:Name="FirearmCreate" Grid.Row="0" Grid.Column="3" Content="Add" Click="FirearmCreate_Click"/>
-            <Button x:Name="FirearmUpdate" Grid.Row="1" Grid.Column="3" Content="Update" Click="FirearmUpdate_Click"/>
-            <Button x:Name="FirearmDelete" Grid.Row="2" Grid.Column="3" Content="Delete" Click="FirearmDelete_Click"/>
-            <Button x:Name="FirearmClear"  Grid.Row="3" Grid.Column="3" Content="Clear Selection" Click="FirearmClear_Click"/>
+            <ListBox x:Name="ListBoxFirearm" Grid.Row="2" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="3" SelectionChanged="ListBoxFirearm_SelectionChanged"/>
+            <TextBox x:Name="TextBoxFirearmName" Grid.Row="1" Grid.Column="0"/>
+            <TextBox x:Name="TextBoxMuzzleVelocity" Grid.Row="1" Grid.Column="1"/>
+            <ComboBox x:Name="ComboBoxFirearmType" Grid.Row="1" Grid.Column="2"/>
+            <ComboBox x:Name="ComboBoxAmmunition" Grid.Row="1" Grid.Column="3"/>
+            <Label x:Name="LabelFirearmName" Content="Name" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="13"  Margin="0,-5,0,0" />
+            <Label x:Name="LabelMuzzleVelocity" Content="Muzzle Velocity (ms)" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="13"  Margin="0,-5,0,0" />
+            <Label x:Name="LabelType" Content="Firearm Type" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="13"  Margin="0,-5,0,0"/>
+            <Label x:Name="LabelAmmunition" Content="Ammunition" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="13"  Margin="0,-5,0,0"/>
+            <Button x:Name="FirearmCreate" Grid.Row="2" Grid.Column="3" Content="Add" Click="FirearmCreate_Click"/>
+            <Button x:Name="FirearmUpdate" Grid.Row="3" Grid.Column="3" Content="Update" Click="FirearmUpdate_Click"/>
+            <Button x:Name="FirearmDelete" Grid.Row="4" Grid.Column="3" Content="Delete" Click="FirearmDelete_Click"/>
+            <Button x:Name="FirearmClear"  Grid.Row="5" Grid.Column="3" Content="Clear Selection" Click="FirearmClear_Click"/>
         </Grid>
+        <DVC:Chart x:Name="mcChart" Grid.Column="7" Grid.Row="0" Grid.RowSpan="4" >
 
+            <DVC:Chart.Series>
+                <DVC:LineSeries x:Name="mySeries" Title="Trajectory" IndependentValueBinding="{Binding Path=Key}" DependentValueBinding="{Binding Path=Value}" >
+
+                </DVC:LineSeries>
+            </DVC:Chart.Series>     
+        </DVC:Chart>
+        
+        
+        
         <Grid Grid.Row="2" Grid.ColumnSpan="6">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -70,26 +89,27 @@
 
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="22"/>
+                <RowDefinition Height="25"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="20"/>
-                <RowDefinition Height="20"/>
+                
             </Grid.RowDefinitions>
-            <ListBox x:Name="ListBoxAmmunition" Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="3" SelectionChanged="ListBoxAmmunition_SelectionChanged"/>
-            <TextBox x:Name="TextBoxAmmunitionName" Grid.Row="5" Grid.Column="0"/>
-            <TextBox x:Name="TextBoxCoefficient" Grid.Row="5" Grid.Column="1"/>
-            <TextBox x:Name="TextBoxGrain" Grid.Row="5" Grid.Column="2"/>
-            <TextBox x:Name="TextBoxDiameter" Grid.Row="5" Grid.Column="3"/>
-            <Label x:Name="LabelAmmunitionName" Content="Cartridge" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="13" Height="26" Margin="0,30,0,0" Grid.RowSpan="3"/>
-            <Label x:Name="LabelCoefficient" Content="Coefficient (G7)" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="13" Height="26" Margin="0,30,0,0" Grid.RowSpan="3"/>
-            <Label x:Name="LabelGrain" Content="Grain (gr)" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="13" Height="26" Margin="0,30,0,0" Grid.RowSpan="3"/>
-            <Label x:Name="LabelDiameter" Content="Diameter (mm)" Grid.Row="3" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="13" Height="26" Margin="0,30,0,0" Grid.RowSpan="3"/>
-            <Button x:Name="AmmunitionCreate" Grid.Row="0" Grid.Column="3" Content="Add" Click="AmmunitionCreate_Click"></Button>
-            <Button x:Name="AmmunitionUpdate" Grid.Row="1" Grid.Column="3" Content="Update" Click="AmmunitionUpdate_Click"></Button>
-            <Button x:Name="AmmunitionDelete" Grid.Row="2" Grid.Column="3" Content="Delete" Click="AmmunitionDelete_Click"></Button>
-            <Button x:Name="AmmunitionClear" Grid.Row="3" Grid.Column="3" Content="Clear Selection" Click="AmmunitionClear_Click"></Button>
+            <ListBox x:Name="ListBoxAmmunition" Grid.Row="2" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="3" SelectionChanged="ListBoxAmmunition_SelectionChanged"/>
+            <TextBox x:Name="TextBoxAmmunitionName" Grid.Row="1" Grid.Column="0"/>
+            <TextBox x:Name="TextBoxCoefficient" Grid.Row="1" Grid.Column="1"/>
+            <TextBox x:Name="TextBoxGrain" Grid.Row="1" Grid.Column="2"/>
+            <TextBox x:Name="TextBoxDiameter" Grid.Row="1" Grid.Column="3"/>
+            <Label x:Name="LabelAmmunitionName" Content="Cartridge" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="13"  Margin="0,-5,0,0" />
+            <Label x:Name="LabelCoefficient" Content="Coefficient (G7)" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="13"  Margin="0,-5,0,0" />
+            <Label x:Name="LabelGrain" Content="Grain (gr)" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="13"  Margin="0,-5,0,0" />
+            <Label x:Name="LabelDiameter" Content="Diameter (mm)" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="13"  Margin="0,-5,0,0" />
+            <Button x:Name="AmmunitionCreate" Grid.Row="2" Grid.Column="3" Content="Add" Click="AmmunitionCreate_Click"></Button>
+            <Button x:Name="AmmunitionUpdate" Grid.Row="3" Grid.Column="3" Content="Update" Click="AmmunitionUpdate_Click"></Button>
+            <Button x:Name="AmmunitionDelete" Grid.Row="4" Grid.Column="3" Content="Delete" Click="AmmunitionDelete_Click"></Button>
+            <Button x:Name="AmmunitionClear" Grid.Row="5" Grid.Column="3" Content="Clear Selection" Click="AmmunitionClear_Click"></Button>
         </Grid>
 
         <Grid Grid.Row="3" Grid.ColumnSpan="6" Margin="0,1,0,0" Grid.RowSpan="2">
@@ -101,20 +121,21 @@
 
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="22"/>
                 <RowDefinition Height="20"/>
-                <RowDefinition Height="20"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                
             </Grid.RowDefinitions>
-            <ListBox x:Name="ListBoxFirearmType" Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="3"  SelectionChanged="ListBoxFirearmType_SelectionChanged"/>
-            <TextBox x:Name="TextBoxTypeName" Grid.Row="5" Grid.Column="0"/>
-            <Label x:Name="LabelFirearmTypeName" Content="Name" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="13" Height="26" Margin="0,30,0,0" Grid.RowSpan="3"/>
-            <Button x:Name="FirearmTypeCreate" Grid.Row="0" Grid.Column="3" Content="Add" Click="FirearmTypeAdd_Click"></Button>
-            <Button x:Name="FirearmTypeUpdate" Grid.Row="1" Grid.Column="3" Content="Update" Click="FirearmTypeUpdate_Click"></Button>
-            <Button x:Name="FirearmTypeDelete" Grid.Row="2" Grid.Column="3" Content="Delete" Click="FirearmTypeDelete_Click"></Button>
-            <Button x:Name="FirearmTypeClear" Grid.Row="3" Grid.Column="3" Content="Clear Selection" Click="FirearmTypeClear_Click"></Button>
+            <ListBox x:Name="ListBoxFirearmType" Grid.Row="2" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="3"  SelectionChanged="ListBoxFirearmType_SelectionChanged"/>
+            <TextBox x:Name="TextBoxTypeName" Grid.Row="1" Grid.Column="0"/>
+            <Label x:Name="LabelFirearmTypeName" Content="Name" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="13" Margin="0,-5,0,0"/>
+            <Button x:Name="FirearmTypeCreate" Grid.Row="2" Grid.Column="3" Content="Add" Click="FirearmTypeAdd_Click"></Button>
+            <Button x:Name="FirearmTypeUpdate" Grid.Row="3" Grid.Column="3" Content="Update" Click="FirearmTypeUpdate_Click"></Button>
+            <Button x:Name="FirearmTypeDelete" Grid.Row="4" Grid.Column="3" Content="Delete" Click="FirearmTypeDelete_Click"></Button>
+            <Button x:Name="FirearmTypeClear" Grid.Row="5" Grid.Column="3" Content="Clear Selection" Click="FirearmTypeClear_Click"></Button>
         </Grid>
     </Grid>
 </Window>
