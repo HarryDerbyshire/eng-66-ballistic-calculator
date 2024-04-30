@@ -7,7 +7,7 @@
         xmlns:DVC="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit" 
         xmlns:local="clr-namespace:BallisticView"
         mc:Ignorable="d"
-        Title="MainWindow" Height="542" Width="1310">
+        Title="Ballistic Calculator" Height="542" Width="1310">
     <Window.Resources>
         <Style x:Key="LineDataPointStyle" TargetType="{x:Type DVC:LineDataPoint}">
             <Setter Property="Background" Value="Orange" ></Setter>
