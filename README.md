@@ -111,4 +111,3 @@ To create a ballistic calculator which uses firearm and ammunition data from a d
 - Focus slightly more on form rather than function (get the right balance) as currently functionality is good but presentation is lacking
 - Considering the limited time available for this project my project scope was quite high and was difficult to do all tasks well so should consider the timeframe more for a project
 - The validation in my program is lacking due to me focusing more on implementing more features than securing existing ones. In the future I will balance this more
-
